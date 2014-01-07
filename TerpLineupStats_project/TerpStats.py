@@ -488,3 +488,20 @@ def createTeam(name, conference):
     t = Team(name=name, conference=conference)
     t.save()
     return t
+
+def createGame(homeTeam, awayTeam, datePlayed, confGame, neutGame):
+    g = Game(homeTeam=homeTeam, awayTeam=awayTeam, date=datePlayed, isConferenceGame=confGame, neutralCourtGame=neutGame)
+    g.save()
+    return g
+
+def createLineupStatsForGame(game, team, filename):
+    lineupData = parseGameLog(filename)
+    for (lineup, lineupStats) in lineupData.items():
+        lineupStats.lineup = lineup
+        lineupStats.game = game
+        lineupStats.team = team
+        lineupStats.save()
+
+    return lineupData
+
+    
