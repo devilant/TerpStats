@@ -15,4 +15,4 @@ save
 run command: sudo /etc/init.d/mysql restart
 
 change mysql root password:
-sudo dpkg-reocnfigure mysql-server-5.5
+sudo dpkg-reconfigure mysql-server-5.5
