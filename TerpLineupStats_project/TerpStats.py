@@ -3,122 +3,9 @@ import datetime
 import string
 import re
 import os
+from LineupStats.models import *
 
 walkons = set(['Jacob Susskind', 'John Auslander', 'Spencer Barks', 'Conner Lipinski', 'Varun Ram'])
-
-class LineupStats:
-    possessionCount = 0
-    made2pCount = 0
-    total2pCount = 0
-    made3pCount = 0
-    total3pCount = 0
-    oppMade2pCount = 0
-    oppTotal2pCount = 0
-    oppMade3pCount = 0
-    oppTotal3pCount = 0
-    turnoverCount = 0
-    defReboundCount = 0
-    totalDefReboundCount = 0
-    offReboundCount = 0
-    totalOffReboundCount = 0
-    pointsFor = 0
-    pointsAgainst = 0
-    stealsCount = 0
-    blockCount = 0
-    foulCount = 0
-    assistCount = 0
-    elapsedTime = datetime.timedelta(0, 0, 0)
-
-    def getPointsPerPossession(self):
-        if self.possessionCount > 0:
-            return round(self.pointsFor * 1.0 / self.possessionCount, 2)
-        return 0
-
-    def getOppPointsPerPossession(self):
-        if self.possessionCount > 0:
-            return round(self.pointsAgainst * 1.0 / self.possessionCount, 2)
-        return 0
-
-    def getEfficiencyMargin(self):
-        return self.getPointsPerPossession() - self.getOppPointsPerPossession()
-
-    def get2pPercentage(self):
-        if self.total2pCount > 0:
-            return round(self.made2pCount * 1.0 / self.total2pCount, 2)
-        return 0
-
-    def get3pPercentage(self):
-        if self.total3pCount > 0:
-            return round(self.made3pCount * 1.0 / self.total3pCount, 2)
-        return 0
-
-    def getOpp2pPercentage(self):
-        if self.oppTotal2pCount > 0:
-            return round(self.oppMade2pCount * 1.0 / self.oppTotal2pCount, 2)
-        return 0
-
-    def getOpp3pPercentage(self):
-        if self.oppTotal3pCount > 0:
-            return round(self.oppMade3pCount * 1.0 / self.oppTotal3pCount, 2)
-        return 0
-
-    def getAssistPercentage(self):
-        return round(self.assistCount * 1.0 / self.possessionCount)
-
-    def getDefReboundPercentage(self):
-        if self.totalDefReboundCount > 0:
-            return round(self.defReboundCount * 1.0 / self.totalDefReboundCount, 2)
-        return 0
-
-    def getOffReboundPercentage(self):
-        if self.totalOffReboundCount > 0:
-            return round(self.offReboundCount * 1.0 / self.totalOffReboundCount, 2)
-        return 0
-
-    def __str__( self ):
-        s = 'Possessions: '+ str(self.possessionCount) + '\n' + \
-            'Time: ' + str(self.elapsedTime) + '\n' + \
-            '2pMade: ' + str(self.made2pCount) + \
-            ' 2pAttempt: ' + str(self.total2pCount) + '\n' + \
-            '3pMade: ' + str(self.made3pCount) + \
-            ' 3pAttempt: ' + str(self.total3pCount) + '\n' + \
-            'Turnovers: ' + str(self.turnoverCount) + '\n' + \
-            'defRebounds: ' + str(self.defReboundCount) + \
-            ' possibleDefRebounds: ' + str(self.totalDefReboundCount) + '\n' + \
-            'offRebounds: ' + str(self.offReboundCount) + \
-            ' possibleOffRebounds: ' + str(self.totalOffReboundCount) + '\n' + \
-            'Assists: ' + str(self.assistCount) + '\n' + \
-            'Steals: ' + str(self.stealsCount) + '\n' + \
-            'Blocks: ' + str(self.blockCount) + '\n' + \
-            'Fouls: ' + str(self.foulCount) + '\n' + \
-            'pointsFor: ' + str(self.pointsFor) + ' pointsAgainst: ' + str(self.pointsAgainst) + '\n' + \
-            'Opp 2pMade: ' + str(self.oppMade2pCount) + ' Opp 2pAttempt: ' + str(self.oppTotal2pCount) + '\n' + \
-            'Opp 3pMade: ' + str(self.oppMade3pCount) + ' Opp 3pAttempt: ' + str(self.oppTotal3pCount)
-        return s
-
-    def __add__(self, other):
-         self.possessionCount += other.possessionCount
-         self.made2pCount += other.made2pCount
-         self.total2pCount += other.total2pCount
-         self.made3pCount += other.made3pCount
-         self.total3pCount += other.total3pCount
-         self.turnoverCount += other.turnoverCount
-         self.elapsedTime += other.elapsedTime
-         self.defReboundCount += other.defReboundCount
-         self.totalDefReboundCount += other.totalDefReboundCount
-         self.totalOffReboundCount += other.totalOffReboundCount
-         self.offReboundCount += other.offReboundCount
-         self.pointsAgainst += other.pointsAgainst
-         self.pointsFor += other.pointsFor
-         self.stealsCount += other.stealsCount
-         self.blockCount += other.blockCount
-         self.foulCount += other.foulCount
-         self.assistCount += other.assistCount
-         self.oppMade2pCount += other.oppMade2pCount
-         self.oppTotal2pCount += other.oppTotal2pCount
-         self.oppMade3pCount += other.oppMade3pCount
-         self.oppTotal3pCount += other.oppTotal3pCount
-         return self
 
 def parsePbp(pbpLines, isHomeTeam, starters):
     lineupData = {}
@@ -134,7 +21,7 @@ def parsePbp(pbpLines, isHomeTeam, starters):
            #end of first half, store lineup stats
            curTime = datetime.time(0, 0, 0)
            elapsedTime = datetime.datetime.combine(datetime.date.today(), time) - datetime.datetime.combine(datetime.date.today(), curTime)                                      
-           lineupStats.elapsedTime = elapsedTime
+           lineupStats.setElapsedTime(elapsedTime)
            key = string.join(sorted(currentPlayers), ', ')
            if key in lineupData:               
                lineupData[key] += lineupStats
@@ -234,7 +121,7 @@ def parsePbp(pbpLines, isHomeTeam, starters):
                            #store data for current lineup
                            curTime = play[0]                           
                            elapsedTime = datetime.datetime.combine(datetime.date.today(), time) - datetime.datetime.combine(datetime.date.today(), curTime)
-                           lineupStats.elapsedTime = elapsedTime
+                           lineupStats.setElapsedTime(elapsedTime)
                                                       
                            key = string.join(sorted(currentPlayers), ', ')
                            if key in lineupData:                               
@@ -286,7 +173,7 @@ def parsePbp(pbpLines, isHomeTeam, starters):
     #end of game--store final lineup stats
     curTime = datetime.time(0, 0, 0)            
     elapsedTime = datetime.datetime.combine(datetime.date.today(), time) - datetime.datetime.combine(datetime.date.today(), curTime)
-    lineupStats.elapsedTime = elapsedTime
+    lineupStats.setElapsedTime(elapsedTime)
     
     key = string.join(sorted(currentPlayers), ', ')
     if key in lineupData:
@@ -595,3 +482,9 @@ def readGameLogsFromWeb(urlStart, startDate, endDate):
         url = urlStart + filename
         writeUrlToFile(url, filename)
         startDate = startDate + datetime.timedelta(1)
+
+
+def createTeam(name, conference):
+    t = Team(name=name, conference=conference)
+    t.save()
+    return t

@@ -17,7 +17,7 @@ class Game(models.Model):
     neutralCourtGame = models.BooleanField()
 
     def __unicode__(self):
-        return self.homeTeam + ' vs. ' + self.awayTeam + ' ' + str(date)
+        return str(self.homeTeam) + ' vs. ' + str(self.awayTeam) + ' ' + str(self.date)
 
 class LineupStats(models.Model):
     lineup = models.CharField(max_length=1000)
