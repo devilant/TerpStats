@@ -1,0 +1,18 @@
+switch to python 2.7.5:
+pythonbrew switch 2.7.5
+
+
+run server:
+python manage.py runserver <ip address:port>
+
+install mysqldb python package:
+pip install MySQL-python
+
+change mysql bind address:
+edit /etc/mysql/my.cnf
+set bind-address
+save
+run command: sudo /etc/init.d/mysql restart
+
+change mysql root password:
+sudo dpkg-reocnfigure mysql-server-5.5
