@@ -1,13 +1,35 @@
 <!DOCTYPE html>
+<script src="./sorttable.js" type="text/javascript"></script>
 <html>
 
 	<head>
-		<title>Maryland Lineup Stats</title>
+		<title>Maryland Basketball Lineup Stats 2013-2014</title>
 	<head>
 
 	<body>
-		<h1>Test</h1>
-		hello world! <strong>{{ boldmessage }}</strong><br />
+		<h1>Maryland Basketball Lineup Stats 2013-2014</h1>
+		<h3>Data for the {{gamesCount}} games through {{ latestGame }}</h3>
+
+		<table border='1' class="sortable">
+		<thead>
+			<tr>
+				{% for header in tableHeaders %}
+				<th>{{header}}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for dataRow in data %}
+				<tr>
+					{% for data in dataRow %}
+					<td>{{data}}</td>
+					{% endfor %}					
+				</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+
+
 		<a href="/LineupStats/about/">About</a><br />
 	</body>
 
