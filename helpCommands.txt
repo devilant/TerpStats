@@ -28,3 +28,9 @@ deactivate
 
 Testing procfile:
 foreman start
+
+Deploy to heroku:
+git push heroku master
+
+Run django shell in heroku:
+heroku run TerpLineupStats_project/manage.py shell
