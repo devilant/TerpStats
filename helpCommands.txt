@@ -16,3 +16,12 @@ run command: sudo /etc/init.d/mysql restart
 
 change mysql root password:
 sudo dpkg-reconfigure mysql-server-5.5
+
+run django shell:
+python manage.py shell
+
+Start virtualenv:
+source venv/bin/activate
+
+Exit virtualenv:
+deactivate
