@@ -22,8 +22,7 @@ def index(request):
 		else:
 			return HttpResponse('Error: Invalid filter settings')
 
-	print(minimumPossessions)
-	print(statsToShow)
+	statsToShow.insert(0, "Lineup")
 	games = Game.objects.order_by('-date')
 	gamesCount = len(games)
 	#get the most recently played game (to show how current the data is)
@@ -44,7 +43,6 @@ def index(request):
 	sortedLineupStats.reverse()
 	lineupStatsList = [lineupStats[1] for lineupStats in sortedLineupStats]
 
-	tableHeaders = ['Lineup', 'Time on Court', 'Possessions', 'Points Per Possession', 'Opponent Points Per Possession', 'Efficiency Margin']
 	data = []
 	allLineups = LineupStats()
 	allLineups.lineup = "All Lineups"
@@ -66,19 +64,55 @@ def index(request):
 			continue
 
 		allLineups += lineupStats
-		dataRow = [lineupStats.lineup, lineupStats.getElapsedTime(), lineupStats.possessionCount, lineupStats.getPointsPerPossession(), lineupStats.getOppPointsPerPossession(), lineupStats.getEfficiencyMargin()]
+		dataRow = getDataRow(lineupStats, statsToShow)
 		data.append(dataRow)		
-	dataRow = [allLineups.lineup, allLineups.getElapsedTime(), allLineups.possessionCount, allLineups.getPointsPerPossession(), allLineups.getOppPointsPerPossession(), allLineups.getEfficiencyMargin()]
-	data.append(dataRow)
+	dataRow = getDataRow(allLineups, statsToShow)
+	data.insert(0, dataRow)
 	context_dict = {'gamesCount': gamesCount,
 					'latestGame': latestGame,
-					'tableHeaders': tableHeaders,
+					'tableHeaders': statsToShow,
 					'data': data,
 					'includePlayers': includePlayers,
 					'excludePlayers': excludePlayers,
 					'minimumPossessions': minimumPossessions}
 
 	return render_to_response('LineupStats/index.html', context_dict, context)
+
+def getDataRow(lineupStat, statsToShow):
+	dataRow = []
+	for stat in statsToShow:
+		if stat == "Lineup":
+			dataRow.append(lineupStat.lineup)
+		if stat == "Time on Court":
+			dataRow.append(lineupStat.getElapsedTime())
+		if stat == "Possessions":
+			dataRow.append(lineupStat.possessionCount)
+		if stat == "Points Per Possession":
+			dataRow.append(lineupStat.getPointsPerPossession())
+		if stat == "Opponent Points Per Possession":
+			dataRow.append(lineupStat.getOppPointsPerPossession())
+		if stat == "Efficiency Margin":
+			dataRow.append(lineupStat.getEfficiencyMargin())
+		if stat == "2p%":
+			dataRow.append(lineupStat.get2pPercentage())
+		if stat == "3p%":
+			dataRow.append(lineupStat.get3pPercentage())
+		if stat == "Opp 2p%":
+			dataRow.append(lineupStat.getOpp2pPercentage())
+		if stat == "Opp 3p%":
+			dataRow.append(lineupStat.getOpp3pPercentage())
+		if stat == "Def Reb %":
+			dataRow.append(lineupStat.getDefReboundPercentage())
+		if stat == "Off Reb %":
+			dataRow.append(lineupStat.getOffReboundPercentage())
+		if stat == "Steal %":
+			dataRow.append(lineupStat.getStealPercentage())
+		if stat == "Assist %":
+			dataRow.append(lineupStat.getAssistPercentage())
+		if stat == "Turnover %":
+			dataRow.append(lineupStat.getTurnoverPercentage())
+
+	return dataRow
 
 def about(request):
 	context = RequestContext(request)

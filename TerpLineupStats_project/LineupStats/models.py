@@ -82,7 +82,9 @@ class LineupStats(models.Model):
         return 0
 
     def getAssistPercentage(self):
-        return round(self.assistCount * 1.0 / self.possessionCount)
+        if self.assistCount > 0:
+            return round(self.assistCount * 1.0 / self.possessionCount, 2)
+        return 0
 
     def getDefReboundPercentage(self):
         if self.totalDefReboundCount > 0:
@@ -97,6 +99,11 @@ class LineupStats(models.Model):
     def getTurnoverPercentage(self):
         if self.turnoverCount > 0:
             return round(self.turnoverCount * 1.0 / self.possessionCount, 2)
+        return 0
+
+    def getStealPercentage(self):
+        if self.stealsCount > 0:
+            return round(self.stealsCount * 1.0 / self.possessionCount, 2)
         return 0
     
     def getElapsedTime(self):
