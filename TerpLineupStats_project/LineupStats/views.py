@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from LineupStats.models import *
+from LineupStats.LineupFilterForm import *
 
 def index(request):
 	context = RequestContext(request)
@@ -42,3 +43,19 @@ def index(request):
 def about(request):
 	context = RequestContext(request)
 	return render_to_response('LineupStats/about.html', None, context)
+
+def filter(request):
+	context = RequestContext(request)
+
+	if request.method == 'POST':
+		form = LineupFilterForm(request.POST)
+		if form.is_valid():
+			return HttpResponseRedirect('Received form')
+	else:
+		form = LineupFilterForm()  #new filter form
+
+	context_dict = {'form': form}
+
+	return render_to_response('LineupStats/filter.html', context_dict, context)
+
+

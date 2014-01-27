@@ -1,0 +1,6 @@
+<p>Use this form to filter the lineups to those containing (or not containing) certain players.  For example, you can find the stats for all lineups that contain Jake Layman and don't contain Evan Smotrycz.</p>
+
+<form action="/filter/" method="post">{% csrf_token %}
+	{{form.as_p}}
+	<input type="submit" value="Submit" />
+</form>
