@@ -10,6 +10,20 @@
 		<h1>Maryland Basketball Lineup Stats 2013-2014</h1>
 		<h3>Data for the {{gamesCount}} games through {{ latestGame }}</h3>
 
+		{% if includeFilterString or excludeFilterString or possessionFilterString %}
+			<p>Filters:</p>
+			<ul type="square">
+				{% if includeFilterString %}
+					<li>{{ includeFilterString }}</li>
+				{% endif %}
+				{% if excludeFilterString %}
+					<li>{{ excludeFilterString }}</li>
+				{% endif %}
+				{% if possessionFilterString %}
+					<li>{{ possessionFilterString }}</li>
+				{% endif %}
+			</ul>
+		{% endif %}
 		<table border='1' class="sortable">
 		<thead>
 			<tr>

@@ -11,7 +11,9 @@ def index(request):
 	excludePlayers = []
 	minimumPossessions = 0
 	statsToShow = ['Time on Court', 'Possessions', 'Points Per Possession', 'Opponent Points Per Possession', 'Efficiency Margin']
-
+	includeFilterString = ""
+	excludeFilterString = ""
+	possessionFilterString = ""
 	if request.method == 'POST':
 		form = LineupFilterForm(request.POST)
 		if form.is_valid():
@@ -19,6 +21,10 @@ def index(request):
 			excludePlayers = form.cleaned_data['excludePlayers']
 			minimumPossessions = form.cleaned_data['minimumPossessions']
 			statsToShow = form.cleaned_data['statsToShow']
+			includeFilterString = playerFilterToString(includePlayers, True)
+			excludeFilterString = playerFilterToString(excludePlayers, False)
+			if minimumPossessions > 0:
+				possessionFilterString = "Lineups that played at least " + str(minimumPossessions) + " possessions"
 		else:
 			return HttpResponse('Error: Invalid filter settings')
 
@@ -66,15 +72,20 @@ def index(request):
 		allLineups += lineupStats
 		dataRow = getDataRow(lineupStats, statsToShow)
 		data.append(dataRow)		
+	#add a row for the combined sum of all the lineups
 	dataRow = getDataRow(allLineups, statsToShow)
 	data.insert(0, dataRow)
+
 	context_dict = {'gamesCount': gamesCount,
 					'latestGame': latestGame,
 					'tableHeaders': statsToShow,
 					'data': data,
 					'includePlayers': includePlayers,
 					'excludePlayers': excludePlayers,
-					'minimumPossessions': minimumPossessions}
+					'minimumPossessions': minimumPossessions,
+					'includeFilterString' : includeFilterString,
+					'excludeFilterString' : excludeFilterString,
+					'possessionFilterString' : possessionFilterString}
 
 	return render_to_response('LineupStats/index.html', context_dict, context)
 
@@ -113,6 +124,29 @@ def getDataRow(lineupStat, statsToShow):
 			dataRow.append(lineupStat.getTurnoverPercentage())
 
 	return dataRow
+
+def playerFilterToString(players, isInclude):
+	if isInclude:
+		conj = "and "
+	else:
+		conj = "or "
+	outputString = ""
+	if len(players) < 1:
+		return ""
+	if len(players) == 1:
+		outputString = players[0]
+	else:
+		for player in players[:-1]:
+			outputString += player
+			if len(players) > 2:
+				outputString += ","
+			outputString += " "
+		outputString += conj + players[-1]
+
+	if isInclude:
+		return "Lineups that contain " + outputString
+	else:
+		return "Lineups that do not contain " + outputString
 
 def about(request):
 	context = RequestContext(request)
