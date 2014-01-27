@@ -1,1 +1,1 @@
-web: gunicorn TerpLineupStats_project.wsgi
+web: gunicorn --pythonpath=./TerpLineupStats_project TerpLineupStats_project.wsgi
