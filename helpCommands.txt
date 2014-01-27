@@ -34,3 +34,8 @@ git push heroku master
 
 Run django shell in heroku:
 heroku run TerpLineupStats_project/manage.py shell
+heroku ps
+heroku ps:scale web=1
+
+show unstaged changes in git:
+git diff HEAD
