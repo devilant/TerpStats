@@ -3,9 +3,12 @@ import os
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+APP_ROOT_PATH = os.path.join(PROJECT_PATH, os.pardir)
+APP_ROOT_PATH = os.path.abspath(APP_ROOT_PATH)
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
 STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
+STATIC_PATH_PROD = os.path.join(APP_ROOT_PATH, 'staticfiles')
 
 
 DEBUG = False
@@ -81,6 +84,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     STATIC_PATH,
+    STATIC_PATH_PROD,
 )
 
 # List of finder classes that know how to find static files in
