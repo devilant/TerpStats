@@ -25,3 +25,6 @@ source venv/bin/activate
 
 Exit virtualenv:
 deactivate
+
+Testing procfile:
+foreman start
