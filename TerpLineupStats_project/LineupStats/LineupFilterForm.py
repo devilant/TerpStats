@@ -2,6 +2,7 @@ from django import forms
 
 class LineupFilterForm(forms.Form):
 	players = (
+		('A.J. Metz', 'A.J. Metz'),
 		('Charles Mitchell', 'Charles Mitchell'),
 		('Connor Lipinski', 'Connor Lipinski'),
 		('Damonte Dodd', 'Damonte Dodd'),
