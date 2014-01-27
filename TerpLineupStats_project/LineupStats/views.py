@@ -10,7 +10,7 @@ def index(request):
 	gamesCount = len(games)
 	#get the most recently played game (to show how current the data is)
 	latestGame = games[0]
-
+	
 	rawLineupData = LineupStats.objects.all()
 
 	#sum the data per-lineup
