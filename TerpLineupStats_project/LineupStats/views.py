@@ -40,4 +40,5 @@ def index(request):
 	return render_to_response('LineupStats/index.html', context_dict, context)
 
 def about(request):
-	return HttpResponse("This is the about page")
+	context = RequestContext(request)
+	return render_to_response('LineupStats/about.html', None, context)
