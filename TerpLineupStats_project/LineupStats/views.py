@@ -14,6 +14,8 @@ def index(request):
 	includeFilterString = ""
 	excludeFilterString = ""
 	possessionFilterString = ""
+	conferenceFilter = "All Games"
+	conferenceFilterString = ""
 	if request.method == 'POST':
 		form = LineupFilterForm(request.POST)
 		if form.is_valid():
@@ -23,6 +25,9 @@ def index(request):
 			statsToShow = form.cleaned_data['statsToShow']
 			includeFilterString = playerFilterToString(includePlayers, True)
 			excludeFilterString = playerFilterToString(excludePlayers, False)
+			conferenceFilter = form.cleaned_data['gameType']	
+			if conferenceFilter == 'Conference Games Only' or conferenceFilter == 'Nonconference Games Only':
+				conferenceFilterString = conferenceFilter		
 			if minimumPossessions > 0:
 				possessionFilterString = "Lineups that played at least " + str(minimumPossessions) + " possessions"
 		else:
@@ -39,7 +44,14 @@ def index(request):
 	#sum the data per-lineup
 	totalLineupData = {}
 	for lineupStat in rawLineupData:
-		lineup = lineupStat.lineup		
+		lineup = lineupStat.lineup
+		isConferenceGame = lineupStat.game.isConferenceGame
+		if conferenceFilterString == 'Conference Games Only':
+			if not isConferenceGame:
+				continue
+		elif conferenceFilterString == 'Nonconference Games Only':
+			if isConferenceGame:
+				continue
 		if lineup in totalLineupData:
 			totalLineupData[lineup] += lineupStat
 		else:
@@ -85,7 +97,8 @@ def index(request):
 					'minimumPossessions': minimumPossessions,
 					'includeFilterString' : includeFilterString,
 					'excludeFilterString' : excludeFilterString,
-					'possessionFilterString' : possessionFilterString}
+					'possessionFilterString' : possessionFilterString,
+					'conferenceFilterString' : conferenceFilterString}
 
 	return render_to_response('LineupStats/index.html', context_dict, context)
 

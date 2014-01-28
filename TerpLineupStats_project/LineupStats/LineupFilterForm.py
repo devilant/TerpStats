@@ -20,6 +20,12 @@ class LineupFilterForm(forms.Form):
 	 	('Varun Ram', 'Varun Ram'),	 	
 	 	)
 
+	gameTypes = (
+		('All Games', 'All Games'),
+		('Conference Games Only', 'Conference Games Only'),
+		('Nonconference Games Only', 'Nonconference Games Only'),
+		)
+
 	statTypes = (
 		('Time on Court', 'Time on Court'),
 		('Possessions', 'Possessions'),
@@ -48,6 +54,9 @@ class LineupFilterForm(forms.Form):
 		choices = players,
 		required=False,
 		label='Show lineups excluding these selected players:')
+	gameType = forms.ChoiceField(
+		choices = gameTypes,
+		label="Show lineups for this game type:")
 	minimumPossessions = forms.IntegerField(
 		min_value=0,
 		max_value=1000,

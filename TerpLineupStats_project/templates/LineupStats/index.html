@@ -12,7 +12,7 @@
 
 		<a href="/filter/">Change filter criteria</a><br />
 
-		{% if includeFilterString or excludeFilterString or possessionFilterString %}
+		{% if includeFilterString or excludeFilterString or possessionFilterString or conferenceFilterString %}
 			<p>Filters:</p>
 			<ul type="square">
 				{% if includeFilterString %}
@@ -23,6 +23,9 @@
 				{% endif %}
 				{% if possessionFilterString %}
 					<li>{{ possessionFilterString }}</li>
+				{% endif %}
+				{% if conferenceFilterString %}
+					<li>{{ conferenceFilterString }}</li>
 				{% endif %}
 			</ul>
 		{% endif %}
