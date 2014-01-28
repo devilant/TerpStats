@@ -24,6 +24,7 @@ notredame = createTeam("Notre Dame", "ACC")
 ncst = createTeam("North Carolina State", "ACC")
 miami = createTeam("Miami", "ACC")
 vatech = createTeam("Virginia Tech", "ACC")
+unc = createTeam("North Carolina", "ACC")
 
 #uconn game
 date = datetime.datetime(2013, 11, 8, 18, 30)
@@ -130,4 +131,7 @@ date = datetime.datetime(2014, 2, 1, 12)
 game = createGame(md, vatech, date, True, False)
 createLineupStatsForGame(game, md, "terps2013-2014/virginiatech-home.html")
 
-
+#unc away game
+date = datetime.datetime(2014, 2, 4, 20)
+game = createGame(unc, md, date, True, False)
+createLineupStatsForGame(game, md, "terps2013-2014/NorthCarolina-away.html")
