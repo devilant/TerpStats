@@ -506,7 +506,7 @@ def createTeam(name, conference):
     t.save()
     return t
 
-def createGame(homeTeam, awayTeam, mdmtePlayed, confGame, neutGame):
+def createGame(homeTeam, awayTeam, datePlayed, confGame, neutGame):
     g = Game(homeTeam=homeTeam, awayTeam=awayTeam, date=datePlayed, isConferenceGame=confGame, neutralCourtGame=neutGame)
     g.save()
     return g
