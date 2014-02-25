@@ -38,7 +38,7 @@ def parsePbp(pbpLines, isHomeTeam, starters):
            #Start of overtime period, store lineup stats and reset for start of OT
            curTime = datetime.time(0, 0, 0)
            elapsedTime = datetime.datetime.combine(datetime.date.today(), time) - datetime.datetime.combine(datetime.date.today(), curTime)
-           lineupStats.elapsedTime = elapsedTime
+           lineupStats.setElapsedTime(elapsedTime)
            key = string.join(sorted(currentPlayers), ', ')
            if key in lineupData:
                lineupData[key] += lineupStats
