@@ -34,6 +34,23 @@ def parsePbp(pbpLines, isHomeTeam, starters):
            nextLineup = set(starters)
            lineupStats = LineupStats()
            madeBasket = False
+       elif re.search(r'\s*OT[0-9]* PERIOD Play-by-Play', line):
+           #Start of overtime period, store lineup stats and reset for start of OT
+           curTime = datetime.time(0, 0, 0)
+           elapsedTime = datetime.datetime.combine(datetime.date.today(), time) - datetime.datetime.combine(datetime.date.today(), curTime)
+           lineupStats.elapsedTime = elapsedTime
+           key = string.join(sorted(currentPlayers), ', ')
+           if key in lineupData:
+               lineupData[key] += lineupStats
+           else:
+               lineupData[key] = lineupStats
+
+           #start of OT
+           time = datetime.time(0, 5, 0)
+           currentPlayers = set(starters)
+           nextLineup = set(starters)
+           lineupStats = LineupStats()
+           madeBasket = False
        else:
            play = parsePbpLine(line)
            if play:
@@ -489,7 +506,7 @@ def createTeam(name, conference):
     t.save()
     return t
 
-def createGame(homeTeam, awayTeam, datePlayed, confGame, neutGame):
+def createGame(homeTeam, awayTeam, mdmtePlayed, confGame, neutGame):
     g = Game(homeTeam=homeTeam, awayTeam=awayTeam, date=datePlayed, isConferenceGame=confGame, neutralCourtGame=neutGame)
     g.save()
     return g
