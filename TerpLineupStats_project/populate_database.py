@@ -164,3 +164,8 @@ createLineupStatsForGame(game, md, "terps2013-2014/clemson-away.html")
 date = datetime.datetime(2014, 3, 4, 20)
 game = createGame(md, vatech, date, True, False)
 createLineupStatsForGame(game, md, "terps2013-2014/virginiatech-home.html")
+
+#florida state acc tournament game
+date = datetime.datetime(2014, 3, 13, 12)
+game = createGame(md, flast, date, True, True)
+createLineupStatsForGame(game, md, "terps2013-2014/floridastate-acctourney.html")
