@@ -281,7 +281,7 @@ def parseBoxScore(boxScoreLines):
     for line in boxScoreLines:
         team = startOfTeamBoxScore(line)
         if team:
-            if team[0] == 'Maryland':
+            if team[0] == 'Maryland' or team[0] == 'Maryland Terrapins':
                 parsingMdScore = True                
                 if team[1] == "VISITORS":                    
                     homeTeam = False
