@@ -4,8 +4,11 @@ from django.shortcuts import render_to_response
 from LineupStats.models import *
 from LineupStats.LineupFilterForm import *
 
-def index(request):
+def index(request, season):
 	context = RequestContext(request)
+
+	if season == '':
+		season = "2015"
 
 	includePlayers = []
 	excludePlayers = []
@@ -17,7 +20,7 @@ def index(request):
 	conferenceFilter = "All Games"
 	conferenceFilterString = ""
 	if request.method == 'POST':
-		form = LineupFilterForm(request.POST)
+		form = LineupFilterForm(season, request.POST)
 		if form.is_valid():
 			includePlayers = form.cleaned_data['includePlayers']
 			excludePlayers = form.cleaned_data['excludePlayers']
@@ -34,7 +37,9 @@ def index(request):
 			return HttpResponse('Error: Invalid filter settings')
 
 	statsToShow.insert(0, "Lineup")
-	games = Game.objects.order_by('-date')
+	seasonStartDate = getSeasonStartDate(season)
+	seasonEndDate = getSeasonEndDate(season)
+	games = Game.objects.filter(date__lte=seasonEndDate, date__gte=seasonStartDate).order_by('-date')
 	gamesCount = len(games)
 	#get the most recently played game (to show how current the data is)
 	latestGame = games[0]
@@ -92,6 +97,7 @@ def index(request):
 					'latestGame': latestGame,
 					'tableHeaders': statsToShow,
 					'data': data,
+					'season': season,
 					'includePlayers': includePlayers,
 					'excludePlayers': excludePlayers,
 					'minimumPossessions': minimumPossessions,
@@ -101,6 +107,20 @@ def index(request):
 					'conferenceFilterString' : conferenceFilterString}
 
 	return render_to_response('LineupStats/index.html', context_dict, context)
+
+def getSeasonStartDate(season):
+	if season == '2014':
+		return '2013-10-01'
+	if season == '2015':
+		return '2014-10-01'
+	return '2014-10-01'
+
+def getSeasonEndDate(season):
+	if season == '2014':
+		return '2014-05-01'
+	if season == '2015':
+		return '2015-05-01'
+	return '2015-05-01'
 
 def getDataRow(lineupStat, statsToShow):
 	dataRow = []
@@ -165,15 +185,15 @@ def about(request):
 	context = RequestContext(request)
 	return render_to_response('LineupStats/about.html', None, context)
 
-def filter(request):
+def filter(request, season):
 	context = RequestContext(request)
 
 	if request.method == 'POST':
-		form = LineupFilterForm(request.POST)
+		form = LineupFilterForm(season, request.POST)
 		if form.is_valid():
-			return index(request)
+			return index(request, season)
 	else:
-		form = LineupFilterForm()  #new filter form
+		form = LineupFilterForm(season)  #new filter form
 	
 	context_dict = {'form': form}
 

@@ -3,11 +3,15 @@
 <html>
 
 	<head>
-		<title>Maryland Basketball Lineup Stats 2013-2014</title>
+		<title>Maryland Basketball Lineup Stats</title>		
 	<head>
 
 	<body>
-		<h1>Maryland Basketball Lineup Stats 2013-2014</h1>
+		<h1>Maryland Basketball Lineup Stats</h1>
+		<select onchange="location = this.options[this.selectedIndex].value;">
+			<option value="2014" {% if season == "2014" %} selected {% endif %}>2013-2014</option>
+			<option value="2015" {% if season == "2015" %} selected {% endif %}>2014-2015</option>
+		</select>
 		<h3>Data for the {{gamesCount}} games through {{ latestGame }}</h3>
 
 		<a href="/filter/">Change filter criteria</a><br />

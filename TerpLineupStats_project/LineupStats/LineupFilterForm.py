@@ -1,7 +1,8 @@
 from django import forms
 
 class LineupFilterForm(forms.Form):
-	players = (
+
+	players2013_2014 = (
 		('A.J. Metz', 'A.J. Metz'),
 		('Charles Mitchell', 'Charles Mitchell'),
 		('Connor Lipinski', 'Connor Lipinski'),
@@ -19,6 +20,23 @@ class LineupFilterForm(forms.Form):
 	 	('Spencer Barks', 'Spencer Barks'),
 	 	('Varun Ram', 'Varun Ram'),	 	
 	 	)
+
+	players2014_2015 = (		
+		('Damonte Dodd', 'Damonte Dodd'),
+		('Dez Wells', 'Dez Wells'),
+		('Dion Wiley', 'Dion Wiley'),
+		('Evan Smotrycz', 'Evan Smotrycz'),
+		('Jacob Susskind', 'Jacob Susskind'),
+		('Jake Layman', 'Jake Layman'),
+		('Jared Nickens', 'Jared Nickens'),
+		('Jon Graham', 'Jon Graham'),
+		('Melo Trimble', 'Melo Trimble'),
+		('Michal Cekovsky', 'Michal Cekovsky'),
+		('Richaud Pack', 'Richaud Pack'),
+		('Spencer Barks', 'Spencer Barks'),
+		('Trevor Anzmann', 'Trevor Anzmann'),
+		('Varun Ram', 'Varun Ram'),
+		)	
 
 	gameTypes = (
 		('All Games', 'All Games'),
@@ -46,12 +64,12 @@ class LineupFilterForm(forms.Form):
 
 	includePlayers = forms.MultipleChoiceField(
 		widget=forms.CheckboxSelectMultiple, 
-		choices = players,
+		choices = (),
 		required=False,
 		label='Show lineups that include these selected players:')
 	excludePlayers = forms.MultipleChoiceField(
 		widget=forms.CheckboxSelectMultiple, 
-		choices = players,
+		choices = (),
 		required=False,
 		label='Show lineups excluding these selected players:')
 	gameType = forms.ChoiceField(
@@ -68,3 +86,14 @@ class LineupFilterForm(forms.Form):
 		required=True,
 		initial=initialStatTypes,
 		label='Select the statistics to show:')
+
+	def __init__(self, season='2014', *args, **kwargs):
+		super(LineupFilterForm, self).__init__(*args, **kwargs)
+		players = self.players2013_2014
+		if season == '2014':
+			players = self.players2013_2014
+		if season == '2015':
+			players = self.players2014_2015
+
+		self.fields["includePlayers"].choices = players
+		self.fields["excludePlayers"].choices = players
