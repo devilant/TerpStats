@@ -44,7 +44,7 @@ def index(request, season):
 	#get the most recently played game (to show how current the data is)
 	latestGame = games[0]
 	
-	rawLineupData = LineupStats.objects.all()
+	rawLineupData = LineupStats.objects.filter(game__date__lte=seasonEndDate, game__date__gte=seasonStartDate)
 
 	#sum the data per-lineup
 	totalLineupData = {}
@@ -195,7 +195,8 @@ def filter(request, season):
 	else:
 		form = LineupFilterForm(season)  #new filter form
 	
-	context_dict = {'form': form}
+	context_dict = {'form': form,
+					'season': season}
 
 	return render_to_response('LineupStats/filter.html', context_dict, context)
 

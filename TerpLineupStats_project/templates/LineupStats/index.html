@@ -14,7 +14,7 @@
 		</select>
 		<h3>Data for the {{gamesCount}} games through {{ latestGame }}</h3>
 
-		<a href="/filter/">Change filter criteria</a><br />
+		<a href="/filter/{{season}}">Change filter criteria</a><br />
 
 		{% if includeFilterString or excludeFilterString or possessionFilterString or conferenceFilterString %}
 			<p>Filters:</p>
