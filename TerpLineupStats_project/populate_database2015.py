@@ -10,6 +10,7 @@ uscupstate = createTeam("USC Upstate", "ASun")
 vmi = createTeam("VMI", "Southern")
 virginia = Team.objects.get(name="Virginia")
 okst = createTeam("Oklahoma St", "B12")
+michst = createTeam("Michigan St", "B10")
 
 #wagner game
 date = datetime.datetime(2014, 11, 14, 19, 30)
@@ -40,3 +41,8 @@ createLineupStatsForGame(game, md, 'terps2014-2015/uscupstate.html')
 date = datetime.datetime(2014, 12, 21, 14, 0)
 game = createGame(okst, md, date, False, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/okst-away.html')
+
+#mich st away game
+date = datetime.datetime(2014, 12, 30, 17, 0)
+game = createGame(michst, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/michiganst-away.html')
