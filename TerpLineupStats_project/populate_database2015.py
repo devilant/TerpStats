@@ -11,6 +11,7 @@ vmi = createTeam("VMI", "Southern")
 virginia = Team.objects.get(name="Virginia")
 okst = createTeam("Oklahoma St", "B12")
 michst = createTeam("Michigan St", "B10")
+minnesota = createTeam("Minnesota", "B10")
 
 #wagner game
 date = datetime.datetime(2014, 11, 14, 19, 30)
@@ -46,3 +47,8 @@ createLineupStatsForGame(game, md, 'terps2014-2015/okst-away.html')
 date = datetime.datetime(2014, 12, 30, 17, 0)
 game = createGame(michst, md, date, True, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/michiganst-away.html')
+
+#minnesota home game
+date = datetime.datetime(2015, 1, 3, 12, 0)
+game = createGame(md, minnesota, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/minnesota.html')
