@@ -12,6 +12,12 @@ virginia = Team.objects.get(name="Virginia")
 okst = createTeam("Oklahoma St", "B12")
 michst = createTeam("Michigan St", "B10")
 minnesota = createTeam("Minnesota", "B10")
+illinois = createTeam("Illinois", "B10")
+purdue = createTeam("Purdue", "B10")
+rutgers = createTeam("Rutgers", "B10")
+indiana = createTeam("Indiana", "B10")
+northwestern = createTeam("Northwestern", "B10")
+ohiost = Team.objects.get(name="Ohio State")
 
 #wagner game
 date = datetime.datetime(2014, 11, 14, 19, 30)
@@ -52,3 +58,38 @@ createLineupStatsForGame(game, md, 'terps2014-2015/michiganst-away.html')
 date = datetime.datetime(2015, 1, 3, 12, 0)
 game = createGame(md, minnesota, date, True, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/minnesota.html')
+
+#illinois away game
+date = datetime.datetime(2015, 1, 7, 21, 0)
+game = createGame(illinois, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/illinois-away.html')
+
+#purdue away game
+date = datetime.datetime(2015, 1, 10, 14, 30)
+game = createGame(purdue, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/purdue-away.html')
+
+#rutgers home game
+date = datetime.datetime(2015, 1, 14, 19, 0)
+game = createGame(md, rutgers, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/rutgers.html')
+
+#michiganst home game
+date = datetime.datetime(2015, 1, 17, 16, 0)
+game = createGame(md, michst, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/michiganst.html')
+
+#indiana away game
+date = datetime.datetime(2015, 1, 22, 21, 0)
+game = createGame(indiana, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/indiana-away.html')
+
+#northwestern home game
+date = datetime.datetime(2015, 1, 25, 19, 30)
+game = createGame(md, northwestern, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/northwestern.html')
+
+#ohio st away game
+date = datetime.datetime(2015, 1, 29, 19, 0)
+game = createGame(ohiost, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/ohiost-away.html')
