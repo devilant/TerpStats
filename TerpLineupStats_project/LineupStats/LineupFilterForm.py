@@ -1,4 +1,6 @@
 from django import forms
+from LineupStats.models import *
+import views
 
 class LineupFilterForm(forms.Form):
 
@@ -74,7 +76,7 @@ class LineupFilterForm(forms.Form):
 		label='Show lineups excluding these selected players:')
 	gameType = forms.ChoiceField(
 		choices = gameTypes,
-		label="Show lineups for this game type:")
+		label="Show lineups for these games:")
 	minimumPossessions = forms.IntegerField(
 		min_value=0,
 		max_value=1000,
@@ -94,6 +96,14 @@ class LineupFilterForm(forms.Form):
 			players = self.players2013_2014
 		if season == '2015':
 			players = self.players2014_2015
+
+		seasonStartDate =  views.getSeasonStartDate(season)
+		seasonEndDate = views.getSeasonEndDate(season)
+		games = Game.objects.filter(date__lte=seasonEndDate, date__gte=seasonStartDate).order_by('date')
+		gameTypes = self.gameTypes
+		for game in games:
+			gameTypes += ((game.id, str(game)),)
+		self.fields["gameType"].choices = gameTypes
 
 		self.fields["includePlayers"].choices = players
 		self.fields["excludePlayers"].choices = players

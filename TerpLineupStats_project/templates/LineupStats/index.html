@@ -16,7 +16,7 @@
 
 		<a href="/filter/{{season}}">Change filter criteria</a><br />
 
-		{% if includeFilterString or excludeFilterString or possessionFilterString or conferenceFilterString %}
+		{% if includeFilterString or excludeFilterString or possessionFilterString or conferenceFilterString or gameFilterString%}
 			<p>Filters:</p>
 			<ul type="square">
 				{% if includeFilterString %}
@@ -31,6 +31,9 @@
 				{% if conferenceFilterString %}
 					<li>{{ conferenceFilterString }}</li>
 				{% endif %}
+				{% if gameFilterString %}
+					<li>{{ gameFilterString }}</li>
+				{% endif %}				
 			</ul>
 		{% endif %}
 		<table border='1' class="sortable">
