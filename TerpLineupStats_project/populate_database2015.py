@@ -20,6 +20,7 @@ northwestern = createTeam("Northwestern", "B10")
 ohiost = Team.objects.get(name="Ohio State")
 pennst = createTeam("Penn State", "B10")
 nebraska = createTeam("Nebraska", "B10")
+wisconsin = createTeam("Wisconsin", "B10")
 
 #wagner game
 date = datetime.datetime(2014, 11, 14, 19, 30)
@@ -115,3 +116,8 @@ createLineupStatsForGame(game, md, 'terps2014-2015/pennstate-away.html')
 date = datetime.datetime(2015, 2, 19, 19, 0)
 game = createGame(md, nebraska, date, True, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/nebraska.html')
+
+#wisconsin home game
+date = datetime.datetime(2015, 2, 24, 19, 0)
+game = createGame(md, wisconsin, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/wisconsin.html')
