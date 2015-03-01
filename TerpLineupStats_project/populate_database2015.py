@@ -4,6 +4,8 @@ from TerpStats import *
 md = Team.objects.get(name="Maryland")
 
 #create team
+iowast = createTeam("Iowa State", "B12")
+arizonast = createTeam("Arizona State", "P12")
 wagner = createTeam("Wagner", "NE")
 monmouth = createTeam("Monmouth", "MAAC")
 uscupstate = createTeam("USC Upstate", "ASun")
@@ -27,6 +29,16 @@ michigan = createTeam("Michigan", "B10")
 date = datetime.datetime(2014, 11, 14, 19, 30)
 game = createGame(md, wagner, date, False, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/wagner.html')
+
+#arizona state game
+date = datetime.datetime(2014, 11, 24, 19, 0)
+game = createGame(md, arizonast, date, False, True)
+createLineupStatsForGame(game, md, 'terps2014-2015/arizonast.html')
+
+#iowa state game
+date = datetime.datetime(2014, 11, 25, 21, 30)
+game = createGame(md, iowast, date, False, True)
+createLineupStatsForGame(game, md, 'terps2014-2015/iowast.html')
 
 #monmouth game
 date = datetime.datetime(2014, 11, 28, 19, 0)
@@ -127,3 +139,8 @@ createLineupStatsForGame(game, md, 'terps2014-2015/wisconsin.html')
 date = datetime.datetime(2015, 2, 28, 12, 0)
 game = createGame(md, michigan, date, True, False)
 createLineupStatsForGame(game, md, 'terps2014-2015/michigan.html')
+
+#rutgers away game
+date = datetime.datetime(2015, 3, 3, 19, 0)
+game = createGame(rutgers, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2014-2015/rutgers-away.html')
