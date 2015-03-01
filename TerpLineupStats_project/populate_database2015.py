@@ -33,12 +33,12 @@ createLineupStatsForGame(game, md, 'terps2014-2015/wagner.html')
 #arizona state game
 date = datetime.datetime(2014, 11, 24, 19, 0)
 game = createGame(md, arizonast, date, False, True)
-createLineupStatsForGame(game, md, 'terps2014-2015/arizonast.html')
+createLineupStatsForGame(game, md, 'terps2014-2015/arizonastate.html')
 
 #iowa state game
 date = datetime.datetime(2014, 11, 25, 21, 30)
 game = createGame(md, iowast, date, False, True)
-createLineupStatsForGame(game, md, 'terps2014-2015/iowast.html')
+createLineupStatsForGame(game, md, 'terps2014-2015/iowastate.html')
 
 #monmouth game
 date = datetime.datetime(2014, 11, 28, 19, 0)
