@@ -154,3 +154,8 @@ createLineupStatsForGame(game, md, 'terps2014-2015/nebraska-away.html')
 date = datetime.datetime(2015, 3, 13, 18, 30)
 game = createGame(md, indiana, date, True, True)
 createLineupStatsForGame(game, md, 'terps2014-2015/indiana-tournament.html')
+
+#michigan state big 10 tournament game
+date = datetime.datetime(2015, 3, 14, 15, 30)
+game = createGame(md, michiganst, date, True, True)
+createLineupStatsForGame(game, md, 'terps2014-2015/michiganst-tournament.html')
