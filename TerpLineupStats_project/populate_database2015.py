@@ -24,6 +24,8 @@ pennst = createTeam("Penn State", "B10")
 nebraska = createTeam("Nebraska", "B10")
 wisconsin = createTeam("Wisconsin", "B10")
 michigan = createTeam("Michigan", "B10")
+valparaiso = createTeam("Valparaiso", "Horizon")
+westvirginia = createTeam("West Virginia", "B12")
 
 #wagner game
 date = datetime.datetime(2014, 11, 14, 19, 30)
@@ -159,3 +161,13 @@ createLineupStatsForGame(game, md, 'terps2014-2015/indiana-tournament.html')
 date = datetime.datetime(2015, 3, 14, 15, 30)
 game = createGame(md, michiganst, date, True, True)
 createLineupStatsForGame(game, md, 'terps2014-2015/michiganst-tournament.html')
+
+#valparaiso ncaa first round game
+date = datetime.datetime(2015, 3, 20, 16, 40)
+game = createGame(md, valparaiso, date, False, True)
+createLineupStatsForGame(game, md, 'terps2014-2015/valparaiso.html')
+
+#west virginia ncaa round of 32 game
+date = datetime.datetime(2015, 3, 22, 20, 40)
+game = createGame(md, westvirginia, date, False, True)
+createLineupStatsForGame(game, md, 'terps2014-2015/westvirginia.html')
