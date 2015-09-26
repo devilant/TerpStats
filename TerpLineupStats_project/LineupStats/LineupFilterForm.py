@@ -38,6 +38,22 @@ class LineupFilterForm(forms.Form):
 		('Spencer Barks', 'Spencer Barks'),
 		('Trevor Anzmann', 'Trevor Anzmann'),
 		('Varun Ram', 'Varun Ram'),
+		)
+
+	players2015_2016 = (
+		('Damonte Dodd', 'Damonte Dodd'),
+		('Diamond Stone', 'Diamond Stone'),
+		('Dion Wiley', 'Dion Wiley'),
+		('Ivan Bender', 'Ivan Bender'),
+		('Jake Layman', 'Jake Layman'),
+		('Jared Nickens', 'Jared Nickens'),
+		('Jaylen Brantley', 'Jaylen Brantley'),
+		('Michal Cekovsky', 'Michal Cekovsky'),
+		('Melo Trimble', 'Melo Trimble'),
+		('Rasheed Sulaimon', 'Rasheed Sulaimon'),
+		('Robert Carter', 'Robert Carter'),
+		('Trevor Anzmann', 'Trevor Anzmann'),
+		('Varun Ram', 'Varun Ram'),
 		)	
 
 	gameTypes = (
@@ -96,6 +112,8 @@ class LineupFilterForm(forms.Form):
 			players = self.players2013_2014
 		if season == '2015':
 			players = self.players2014_2015
+		if season == '2016':
+			players = self.players2015_2016
 
 		seasonStartDate =  views.getSeasonStartDate(season)
 		seasonEndDate = views.getSeasonEndDate(season)

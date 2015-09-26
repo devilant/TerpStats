@@ -47,7 +47,10 @@ def index(request, season):
 	games = Game.objects.filter(date__lte=seasonEndDate, date__gte=seasonStartDate).order_by('-date')
 	gamesCount = len(games)
 	#get the most recently played game (to show how current the data is)
-	latestGame = games[0]
+	if gamesCount > 0:
+		latestGame = games[0]
+	else:
+		latestGame = None
 	
 	rawLineupData = LineupStats.objects.filter(game__date__lte=seasonEndDate, game__date__gte=seasonStartDate)
 
@@ -122,6 +125,8 @@ def getSeasonStartDate(season):
 		return '2013-10-01'
 	if season == '2015':
 		return '2014-10-01'
+	if season == '2016':
+		return '2015-10-01'
 	return '2014-10-01'
 
 def getSeasonEndDate(season):
@@ -129,6 +134,8 @@ def getSeasonEndDate(season):
 		return '2014-05-01'
 	if season == '2015':
 		return '2015-05-01'
+	if season == '2016':
+		return '2016-05-01'
 	return '2015-05-01'
 
 def getDataRow(lineupStat, statsToShow):
