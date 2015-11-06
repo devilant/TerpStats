@@ -41,6 +41,7 @@ class LineupFilterForm(forms.Form):
 		)
 
 	players2015_2016 = (
+		('Andres Terrell', 'Andrew Terrell'),
 		('Damonte Dodd', 'Damonte Dodd'),
 		('Diamond Stone', 'Diamond Stone'),
 		('Dion Wiley', 'Dion Wiley'),
@@ -48,6 +49,7 @@ class LineupFilterForm(forms.Form):
 		('Jake Layman', 'Jake Layman'),
 		('Jared Nickens', 'Jared Nickens'),
 		('Jaylen Brantley', 'Jaylen Brantley'),
+		('Kent Auslander', 'Kent Auslander'),
 		('Michal Cekovsky', 'Michal Cekovsky'),
 		('Melo Trimble', 'Melo Trimble'),
 		('Rasheed Sulaimon', 'Rasheed Sulaimon'),

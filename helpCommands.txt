@@ -39,3 +39,14 @@ heroku ps:scale web=1
 
 show unstaged changes in git:
 git diff HEAD
+
+
+
+Python commands to add a new game:
+from TerpStats import *
+from LineupStats.models import *
+md = Team.objects.get(name="Maryland")
+newTeam = createTeam("team Name", "conference name")
+date = datetime.datetime(2015, 11, 13, 19, 0)
+game = createGame(homeTeam, awayTeam, date, isConfGame, isNeutral)
+createLineupStatsForGame(game, md, 'filepath')

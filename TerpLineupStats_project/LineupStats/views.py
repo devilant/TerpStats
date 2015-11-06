@@ -8,7 +8,7 @@ def index(request, season):
 	context = RequestContext(request)
 
 	if season == '':
-		season = "2015"
+		season = "2016"
 
 	includePlayers = []
 	excludePlayers = []
