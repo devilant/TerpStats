@@ -8,6 +8,7 @@ gtown = createTeam("Georgetown", "BE")
 rider = createTeam("Rider", "MAAC")
 illst = createTeam("Illinois State", "MVC")
 rhodeisland = createTeam("Rhode Island", "A10")
+clevelandst = createTeam("Cleveland State", "Horizon")
 
 #mount st. mary's game
 date = datetime.datetime(2015, 11, 13, 19, 0)
@@ -30,6 +31,11 @@ game = createGame(md, illst, date, False, True)
 createLineupStatsForGame(game, md, 'terps2015-2016/illinoisst.html')
 
 #rhode island game
-date = datetime.datetime(2015, 11, 15, 20, 30)
+date = datetime.datetime(2015, 11, 25, 20, 30)
 game = createGame(md, rhodeisland, date, False, True)
 createLineupStatsForGame(game, md, 'terps2015-2016/rhodeisland.html')
+
+#cleveland st game
+date = datetime.datetime(2015, 11, 28, 19, 30)
+game = createGame(md, clevelandst, date, False, False)
+createLineupStatsForGame(game, md, 'terps2015-2016/clevelandst.html')
