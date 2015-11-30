@@ -10,6 +10,7 @@ illst = createTeam("Illinois State", "MVC")
 rhodeisland = createTeam("Rhode Island", "A10")
 clevelandst = createTeam("Cleveland State", "Horizon")
 northcarolina = Team.objects.get(name="North Carolina")
+connecticut = Team.objects.get(name="Connecticut")
 
 #mount st. mary's game
 date = datetime.datetime(2015, 11, 13, 19, 0)
@@ -45,3 +46,8 @@ createLineupStatsForGame(game, md, 'terps2015-2016/clevelandst.html')
 date = datetime.datetime(2015, 12, 1, 21, 30)
 game = createGame(northcarolina, md, date, False, False)
 createLineupStatsForGame(game, md, 'terps2015-2016/northcarolina.html')
+
+#connecticut game
+date = datetime.datetime(2015, 12, 8, 21, 30)
+game = createGame(md, connecticut, date, False, True)
+createLineupStatsForGame(game, md, 'terps2015-2016/connecticut.html')
