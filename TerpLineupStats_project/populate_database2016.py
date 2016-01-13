@@ -17,6 +17,7 @@ marshall = createTeam("Marshall", "CUSA")
 pennst = Team.objects.get(name="Penn State")
 northwestern = Team.objects.get(name="Northwestern")
 rutgers = Team.objects.get(name="Rutgers")
+wisconsin = Team.objects.get(name="Wisconsin")
 
 #mount st. mary's game
 date = datetime.datetime(2015, 11, 13, 19, 0)
@@ -87,3 +88,8 @@ createLineupStatsForGame(game, md, 'terps2015-2016/northwestern-away.html')
 date = datetime.datetime(2016, 1, 6, 19, 0)
 game = createGame(md, rutgers, date, True, False)
 createLineupStatsForGame(game, md, 'terps2015-2016/rutgers.html')
+
+#wisconsin away game
+date = datetime.datetime(2016, 1, 9, 13, 0)
+game = createGame(wisconsin, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2015-2016/wisconsin-away.html')
