@@ -60,8 +60,19 @@ class LineupFilterForm(forms.Form):
 
 	gameTypes = (
 		('All Games', 'All Games'),
+		)
+
+	confGameTypes = (
+		('All Games', 'All Games'),
 		('Conference Games Only', 'Conference Games Only'),
 		('Nonconference Games Only', 'Nonconference Games Only'),
+		)
+
+	homeAwayTypes = (
+		('All Games', 'All Games'),
+		('Home Games Only', 'Home Games Only'),
+		('Away Games Only', 'Away Games Only'),
+		('Neutral Court Games Only', 'Neutral Court Games Only')
 		)
 
 	statTypes = (
@@ -92,9 +103,15 @@ class LineupFilterForm(forms.Form):
 		choices = (),
 		required=False,
 		label='Show lineups excluding these selected players:')
+	conferenceGameType = forms.ChoiceField(
+		choices = confGameTypes,
+		label = "Show lineups for conference or nonconference games:")
+	homeAwayGameType = forms.ChoiceField(
+		choices = homeAwayTypes,
+		label = "Show lineups for home or away games:")
 	gameType = forms.ChoiceField(
 		choices = gameTypes,
-		label="Show lineups for these games:")
+		label="Show lineups for a particular game:")
 	minimumPossessions = forms.IntegerField(
 		min_value=0,
 		max_value=1000,
@@ -121,9 +138,12 @@ class LineupFilterForm(forms.Form):
 		seasonEndDate = views.getSeasonEndDate(season)
 		games = Game.objects.filter(date__lte=seasonEndDate, date__gte=seasonStartDate).order_by('date')
 		gameTypes = self.gameTypes
+		confGameTypes = self.confGameTypes
+		homeAwayTypes = self.homeAwayTypes
 		for game in games:
 			gameTypes += ((game.id, str(game)),)
 		self.fields["gameType"].choices = gameTypes
-
+		self.fields["conferenceGameType"].choices = confGameTypes
+		self.fields["homeAwayGameType"].choices = homeAwayTypes
 		self.fields["includePlayers"].choices = players
 		self.fields["excludePlayers"].choices = players
