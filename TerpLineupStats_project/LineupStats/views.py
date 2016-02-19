@@ -21,6 +21,8 @@ def index(request, season):
 	conferenceFilterString = ""
 	gameFilter = ""
 	gameFilterString = ""
+	homeAwayFilter = ""
+	homeAwayFilterString = ""
 	if request.method == 'POST':
 		form = LineupFilterForm(season, request.POST)
 		if form.is_valid():
@@ -30,12 +32,25 @@ def index(request, season):
 			statsToShow = form.cleaned_data['statsToShow']
 			includeFilterString = playerFilterToString(includePlayers, True)
 			excludeFilterString = playerFilterToString(excludePlayers, False)
-			conferenceFilter = form.cleaned_data['gameType']	
+			gameFilter = form.cleaned_data['gameType']
+			conferenceFilter = form.cleaned_data['conferenceGameType']
+			homeAwayFilter = form.cleaned_data['homeAwayGameType']	
+
 			if conferenceFilter == 'Conference Games Only' or conferenceFilter == 'Nonconference Games Only':
-				conferenceFilterString = conferenceFilter
-			elif conferenceFilter != 'All Games':
-				gameFilter = conferenceFilter
+				conferenceFilterString = conferenceFilter			
+
+			if homeAwayFilter != 'All Games':
+				homeAwayFilterString = homeAwayFilter
+
+			if gameFilter != 'All Games':
 				gameFilterString = str(Game.objects.get(id=gameFilter))
+				conferenceFilter = ""
+				conferenceFilterString = ""
+				homeAwayFilter = ""
+				homeAwayFilterString = ""
+			else:
+				gameFilter = ""
+
 			if minimumPossessions > 0:
 				possessionFilterString = "Lineups that played at least " + str(minimumPossessions) + " possessions"
 		else:
@@ -59,15 +74,29 @@ def index(request, season):
 	for lineupStat in rawLineupData:
 		lineup = lineupStat.lineup
 		isConferenceGame = lineupStat.game.isConferenceGame
+		isHomeGame = lineupStat.game.homeTeam.name == "Maryland"
+		isNeutralGame = lineupStat.game.neutralCourtGame
 		if conferenceFilterString == 'Conference Games Only':
 			if not isConferenceGame:
 				continue
 		elif conferenceFilterString == 'Nonconference Games Only':
 			if isConferenceGame:
 				continue
+
 		if gameFilter:
 			if str(lineupStat.game.id) != gameFilter:
 				continue
+
+		if homeAwayFilter == "Home Games Only":
+			if not isHomeGame or isNeutralGame:
+				continue
+		if homeAwayFilter == "Away Games Only":
+			if isHomeGame or isNeutralGame:
+				continue
+		if homeAwayFilter == "Neutral Court Games Only":
+			if not isNeutralGame:
+				continue
+
 		if lineup in totalLineupData:
 			totalLineupData[lineup] += lineupStat
 		else:
@@ -116,6 +145,7 @@ def index(request, season):
 					'excludeFilterString' : excludeFilterString,
 					'possessionFilterString' : possessionFilterString,
 					'conferenceFilterString' : conferenceFilterString,
+					'homeAwayFilterString' : homeAwayFilterString,
 					'gameFilterString' : gameFilterString}
 
 	return render_to_response('LineupStats/index.html', context_dict, context)
