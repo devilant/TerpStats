@@ -26,6 +26,7 @@ nebraska = Team.objects.get(name="Nebraska")
 purdue = Team.objects.get(name="Purdue")
 minnesota = Team.objects.get(name="Minnesota")
 illinois = Team.objects.get(name="Illinois")
+indiana = Team.objects.get(name="Indiana")
 
 #mount st. mary's game
 date = datetime.datetime(2015, 11, 13, 19, 0)
@@ -166,3 +167,8 @@ createLineupStatsForGame(game, md, 'terps2015-2016/purdue-away.html')
 date = datetime.datetime(2016, 3, 3, 19, 0)
 game = createGame(md, illinois, date, True, False)
 createLineupStatsForGame(game, md, 'terps2015-2016/illinois.html')
+
+#indiana away game
+date = datetime.datetime(2016, 3, 6, 16, 30)
+game = createGame(indiana, md, date, True, False)
+createLineupStatsForGame(game, md, 'terps2015-2016/indiana-away.html')
