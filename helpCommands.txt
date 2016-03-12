@@ -14,6 +14,10 @@ set bind-address
 save
 run command: sudo /etc/init.d/mysql restart
 
+Stop and restart mysql:
+sudo stop mysql
+sudo start mysql
+
 change mysql root password:
 sudo dpkg-reconfigure mysql-server-5.5
 
