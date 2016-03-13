@@ -181,4 +181,4 @@ createLineupStatsForGame(game, md, 'terps2015-2016/nebraska-tournament.html')
 #michigan st big ten tournament game
 date = datetime.datetime(2016, 3, 12, 15, 30)
 game = createGame(md, michst, date, True, True)
-createLineupStatsForGame(game, md, 'terps2015-2016/michiganst-tournament.htnl')
+createLineupStatsForGame(game, md, 'terps2015-2016/michiganst-tournament.html')
