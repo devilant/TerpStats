@@ -29,6 +29,7 @@ illinois = Team.objects.get(name="Illinois")
 indiana = Team.objects.get(name="Indiana")
 southdakotast = createTeam("South Dakota St", "Summit")
 hawaii = createTeam("Hawaii", "Big West")
+kansas = createTeam("Kansas", "B12")
 
 #mount st. mary's game
 date = datetime.datetime(2015, 11, 13, 19, 0)
@@ -194,3 +195,8 @@ createLineupStatsForGame(game, md, 'terps2015-2016/southdakotast.html')
 date = datetime.datetime(2016, 3, 20, 19, 0)
 game = createGame(md, hawaii, date, False, True)
 createLineupStatsForGame(game, md, 'terps2015-2016/hawaii.html')
+
+#kansas ncaa tournament game
+date = datetime.datetime(2016, 3, 24, 21, 30)
+game = createGame(md, kansas, date, False, True)
+createLineupStatsForGame(game, md, 'terps2015-2016/kansas.html')
