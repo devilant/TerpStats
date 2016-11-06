@@ -41,7 +41,7 @@ class LineupFilterForm(forms.Form):
 		)
 
 	players2015_2016 = (
-		('Andres Terrell', 'Andrew Terrell'),
+		('Andrew Terrell', 'Andrew Terrell'),
 		('Damonte Dodd', 'Damonte Dodd'),
 		('Diamond Stone', 'Diamond Stone'),
 		('Dion Wiley', 'Dion Wiley'),
@@ -56,7 +56,26 @@ class LineupFilterForm(forms.Form):
 		('Robert Carter', 'Robert Carter'),
 		('Trevor Anzmann', 'Trevor Anzmann'),
 		('Varun Ram', 'Varun Ram'),
-		)	
+		)
+
+	players2016_2017 = (
+		('Andrew Terrell', 'Andrew Terrell'),
+		('Anthony Cowan', 'Anthony Cowan'),
+		('Damonte Dodd', 'Damonte Dodd'),
+		('Dion Wiley', 'Dion Wiley'),
+		('Ivan Bender', 'Ivan Bender'),
+		('Jared Nickens', 'Jared Nickens'),
+		('Jaylen Brantley', 'Jaylen Brantley'),
+		('Joshua Tomaic', 'Joshua Tomaic'),
+		('Justin Jackson', 'Justin Jackson'),
+		('Kent Auslander', 'Kent Auslander'),
+		('Kevin Huerter', 'Kevin Huerter'),
+		('L.G. Gill', 'L.G. Gill'),
+		('Melo Trimble', 'Melo Trimble'),
+		('Micah Thomas', 'Micah Thomas'),
+		('Michal Cekovsky', 'Michal Cekovsky'),
+		('Travis Valmon', 'Travis Valmon'),
+		)
 
 	gameTypes = (
 		('All Games', 'All Games'),
@@ -133,6 +152,8 @@ class LineupFilterForm(forms.Form):
 			players = self.players2014_2015
 		if season == '2016':
 			players = self.players2015_2016
+		if season == '2017':
+			players = self.players2016_2017
 
 		seasonStartDate =  views.getSeasonStartDate(season)
 		seasonEndDate = views.getSeasonEndDate(season)
