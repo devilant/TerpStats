@@ -300,9 +300,9 @@ def parseBoxScore(boxScoreLines):
 #returns a tuple of (playerName, starting)
 def parsePlayer(line):
     #match = re.search(r'(\d+)\s+(<A.+</A>)\.*\s*([fcg\*]?)\s+\d', line)
-    match = re.search(r'(\d+)\s+([a-zA-Z\s]+)\.+\s([fcg\*]?)\s+\d', line)
+    match = re.search(r'(\d+)\s+([a-zA-Z.\s]+)\.+\s([fcg\*]?)\s+\d', line)
     if match: 
-        return (match.group(2), match.group(3) != '')
+        return (match.group(2).strip('.'), match.group(3) != '')
     return None        
 
 def extractPlayerName(htmlATag):
