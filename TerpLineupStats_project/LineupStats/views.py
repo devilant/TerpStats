@@ -8,7 +8,7 @@ def index(request, season):
 	context = RequestContext(request)
 
 	if season == '':
-		season = "2017"
+		season = "2018"
 
 	includePlayers = []
 	excludePlayers = []
@@ -159,6 +159,8 @@ def getSeasonStartDate(season):
 		return '2015-10-01'
 	if season == '2017':
 		return '2016-10-01'
+	if season == '2018':
+		return '2017-10-01'
 	return '2014-10-01'
 
 def getSeasonEndDate(season):
@@ -170,6 +172,8 @@ def getSeasonEndDate(season):
 		return '2016-05-01'
 	if season == '2017':
 		return '2017-05-01'
+	if season == '2018':
+		return '2018-05-01'
 	return '2015-05-01'
 
 def getDataRow(lineupStat, statsToShow):

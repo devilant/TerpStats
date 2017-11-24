@@ -77,6 +77,24 @@ class LineupFilterForm(forms.Form):
 		('Travis Valmon', 'Travis Valmon'),
 		)
 
+	players2017_2018 = (
+		('Alex Tostado', 'Alex Tostado'),
+		('Andrew Terrell', 'Andrew Terrell'),
+		('Anthony Cowan', 'Anthony Cowan'),
+		('Bruno Fernando', 'Bruno Fernando'),
+		('Darryl Morsell', 'Darryl Morsell'),
+		('Dion Wiley', 'Dion Wiley'),
+		('Ivan Bender', 'Ivan Bender'),
+		('Jared Nickens', 'Jared Nickens'),
+		('Joshua Tomaic', 'Joshua Tomaic'),
+		('Justin Jackson', 'Justin Jackson'),
+		('Kevin Huerter', 'Kevin Huerter'),
+		('Michal Cekovsky', 'Michal Cekovsky'),
+		('Reese Mona', 'Reese Mona'),
+		('Sean Obi', 'Sean Obi'),
+		('Travis Valmon', 'Travis Valmon'),
+		)
+
 	gameTypes = (
 		('All Games', 'All Games'),
 		)
@@ -154,6 +172,8 @@ class LineupFilterForm(forms.Form):
 			players = self.players2015_2016
 		if season == '2017':
 			players = self.players2016_2017
+		if season == '2018':
+			players = self.players2017_2018
 
 		seasonStartDate =  views.getSeasonStartDate(season)
 		seasonEndDate = views.getSeasonEndDate(season)
